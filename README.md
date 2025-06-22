@@ -1,5 +1,9 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+Task video updated.
+
+https://github.com/user-attachments/assets/ddf0af81-77e1-4900-8cc7-461efaeae47b
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
@@ -46,6 +50,4 @@ The first time you create a new project, run the Ruby bundler to install CocoaPo
 
 ```sh
 
-Task video updated.
 
-https://github.com/user-attachments/assets/ddf0af81-77e1-4900-8cc7-461efaeae47b
