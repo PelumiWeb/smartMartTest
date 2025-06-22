@@ -1,0 +1,35 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from '../screens/Homescreen';
+import DetailScreen from '../screens/DetailsScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { useAppDispatch } from '../app/hooks';
+import { setSearchMovies } from '../features/movies/moviesSlice';
+
+const Stack = createNativeStackNavigator();
+
+export default function AppNavigator() {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    const fetchCachedData = async () => {
+      const cached = await AsyncStorage.getItem('lastSearchResults');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        dispatch(setSearchMovies(parsed));
+      }
+    };
+
+    fetchCachedData();
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Detail" component={DetailScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
