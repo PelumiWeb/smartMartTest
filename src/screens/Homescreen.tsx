@@ -38,7 +38,6 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
       const cached = await AsyncStorage.getItem('lastSearchDetails');
       if (cached) {
         setSearchTerm(cached);
-        // dispatch(setSearchMovies(cached));
       }
     };
 
