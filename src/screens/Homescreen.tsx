@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MovieCard from '../components/MovieCard';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { fetchPopularMovies, searchMovies } from '../services/tmdb';
@@ -31,6 +32,18 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
   console.log(movies, 'Movies----');
 
   const { popular, loading } = useAppSelector(state => state.movies);
+
+  React.useEffect(() => {
+    const fetchCachedData = async () => {
+      const cached = await AsyncStorage.getItem('lastSearchDetails');
+      if (cached) {
+        setSearchTerm(cached);
+        // dispatch(setSearchMovies(cached));
+      }
+    };
+
+    fetchCachedData();
+  }, []);
 
   useEffect(() => {
     const fetchInitialMovies = async () => {
@@ -60,6 +73,7 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         dispatch(selectMovie(res)); // full search result array
         dispatch(setSearchMovies(res));
         setPage(1); // reset page if needed
+        await AsyncStorage.setItem('lastSearchDetails', searchTerm);
       } else {
         // Fallback to popular if searchTerm is cleared
         const res = await fetchPopularMovies(1);

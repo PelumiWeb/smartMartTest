@@ -12,17 +12,7 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
   const dispatch = useAppDispatch();
 
-  React.useEffect(() => {
-    const fetchCachedData = async () => {
-      const cached = await AsyncStorage.getItem('lastSearchResults');
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        dispatch(setSearchMovies(parsed));
-      }
-    };
 
-    fetchCachedData();
-  }, []);
 
   return (
     <NavigationContainer>
